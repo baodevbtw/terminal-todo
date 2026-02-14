@@ -7,6 +7,18 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.3.0] - 2026-02-14
+
+### Added
+- Mark tasks as done
+- Show completion status in task list
+
+### Changed
+- Task file format now stores completion state
+  (old tasks.txt is not compatible)
+
+---
+
 ## [0.2.1] - 2026-02-14
 
 ### Added

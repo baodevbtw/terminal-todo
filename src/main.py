@@ -5,7 +5,9 @@ tasks = []
 if os.path.exists("tasks.txt"):
     with open("tasks.txt") as f:
         for line in f:
-            tasks.append(line.strip())
+            line = line.strip()
+            done, text = line.split("|", 1)
+            tasks.append((done == "1", text))
 
 while True:
     print("\n--- TODO ---")
@@ -13,24 +15,37 @@ while True:
     if not tasks:
         print("No tasks.")
     else:
-        for i, t in enumerate(tasks):
-            print(f"{i+1}. {t}")
+        for i, (done, text) in enumerate(tasks):
+            mark = "x" if done else " "
+            print(f"{i+1}. [{mark}] {text}")
 
     print("\n[a] Add")
+    print("[d] Mark done")
     print("[x] Delete")
     print("[q] Quit")
 
-    cmd = input("> ")
+    cmd = input("> ").strip().lower()
 
     if cmd == "a":
         text = input("Task: ").strip()
         if text:
-            tasks.append(text)
+            tasks.append((False, text))
         else:
             print("Empty task ignored.")
 
-    elif cmd == "q":
-        break
+    elif cmd == "d":
+        if not tasks:
+            print("No tasks.")
+            continue
+        try:
+            i = int(input("Done number: ")) - 1
+            if 0 <= i < len(tasks):
+                done, text = tasks[i]
+                tasks[i] = (True, text)
+            else:
+                print("Invalid number.")
+        except ValueError:
+            print("Please enter a number.")
 
     elif cmd == "x":
         if not tasks:
@@ -39,10 +54,10 @@ while True:
         try:
             i = int(input("Delete number: ")) - 1
             if 0 <= i < len(tasks):
-                confirm = input(f"Delete '{tasks[i]}'? (y/n): ")
+                confirm = input(f"Delete '{tasks[i][1]}'? (y/n): ")
                 if confirm.lower() == "y":
                     removed = tasks.pop(i)
-                    print(f"Deleted: {removed}")
+                    print(f"Deleted: {removed[1]}")
                 else:
                     print("Cancelled.")
             else:
@@ -50,6 +65,9 @@ while True:
         except ValueError:
             print("Please enter a number.")
 
+    elif cmd == "q":
+        break
+
     with open("tasks.txt", "w") as f:
-        for t in tasks:
-            f.write(t + "\n")
+        for done, text in tasks:
+            f.write(("1" if done else "0") + "|" + text + "\n")

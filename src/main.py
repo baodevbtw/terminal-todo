@@ -70,7 +70,8 @@ while True:
 
     elif cmd == "q":
         break
-
+    
+    tasks.sort(key=lambda t: t[0])
     with open("tasks.txt", "w") as f:
         for done, text in tasks:
             f.write(("1" if done else "0") + "|" + text + "\n")

@@ -1,4 +1,11 @@
+import os
+
 tasks = []
+
+if os.path.exists("tasks.txt"):
+    with open("tasks.txt") as f:
+        for line in f:
+            tasks.append(line.strip())
 
 while True:
     print("\n--- TODO ---")
@@ -38,3 +45,6 @@ while True:
                 print("Invalid number.")
         except ValueError:
             print("Please enter a number.")
+    with open("tasks.txt", "w") as f:
+        for t in tasks:
+            f.write(t + "\n")

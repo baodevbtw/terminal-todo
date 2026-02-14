@@ -7,6 +7,14 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.1.2] - 2026-02-14
+
+### Added
+- Delete tasks by number
+- Handle invalid delete input safely
+
+---
+
 ## [0.1.1] - 2026-02-14
 
 ### Fixed

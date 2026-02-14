@@ -34,12 +34,6 @@ git clone https://github.com/baodevbtw/terminal-todo
 cd terminal-todo  
 python src/main.py  
 
-## Roadmap
-
-- 0.3.1 – Migrate old file format automatically  
-- 0.4.0 – Task priority (low / medium / high)  
-- 0.5.0 – Due dates  
-- 1.0.0 – Stable CLI tool
 
 ## Why this project exists
 

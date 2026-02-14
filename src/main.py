@@ -15,8 +15,11 @@ while True:
     cmd = input("> ")
 
     if cmd == "a":
-        text = input("Task: ")
-        tasks.append(text)
+        text = input("Task: ").strip()
+        if text:
+            tasks.append(text)
+        else:
+            print("Empty task ignored.")
 
     elif cmd == "q":
         break

@@ -39,12 +39,17 @@ while True:
         try:
             i = int(input("Delete number: ")) - 1
             if 0 <= i < len(tasks):
-                removed = tasks.pop(i)
-                print(f"Deleted: {removed}")
+                confirm = input(f"Delete '{tasks[i]}'? (y/n): ")
+                if confirm.lower() == "y":
+                    removed = tasks.pop(i)
+                    print(f"Deleted: {removed}")
+                else:
+                    print("Cancelled.")
             else:
                 print("Invalid number.")
         except ValueError:
             print("Please enter a number.")
+
     with open("tasks.txt", "w") as f:
         for t in tasks:
             f.write(t + "\n")

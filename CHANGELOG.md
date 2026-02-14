@@ -7,6 +7,13 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.2.1] - 2026-02-14
+
+### Added
+- Confirmation prompt before deleting tasks
+
+---
+
 ## [0.2.0] - 2026-02-14
 
 ### Added

@@ -6,8 +6,11 @@ if os.path.exists("tasks.txt"):
     with open("tasks.txt") as f:
         for line in f:
             line = line.strip()
-            done, text = line.split("|", 1)
-            tasks.append((done == "1", text))
+            if "|" in line:
+                done, text = line.split("|", 1)
+                tasks.append((done == "1", text))
+            else:
+                tasks.append((False, line))
 
 while True:
     print("\n--- TODO ---")

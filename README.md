@@ -4,7 +4,7 @@ A simple beginner terminal-based TODO application written in Python.
 
 This project is built step-by-step to practice Git, GitHub, and basic software development.
 
-## Features (v0.3.0)
+## Features (v0.3.1)
 
 - Add new tasks  
 - Mark tasks as done  
@@ -26,8 +26,7 @@ Where:
 - 0 = not done  
 - 1 = done  
 
-Older tasks.txt files (pre-0.3.0) are not compatible and must be deleted or migrated.  
-Backward compatibility will be added in 0.3.1.
+Older tasks.txt files (pre-0.3.0) are automatically migrated on startup.
 
 ## How to run
 

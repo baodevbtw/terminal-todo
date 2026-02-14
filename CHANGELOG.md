@@ -7,6 +7,14 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.3.1] - 2026-02-14
+
+### Fixed
+- Automatically migrate old tasks.txt format (pre-0.3.0)
+- Prevent crash when loading legacy task files
+
+---
+
 ## [0.3.0] - 2026-02-14
 
 ### Added

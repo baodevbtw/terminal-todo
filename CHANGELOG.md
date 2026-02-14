@@ -7,6 +7,14 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.2.0] - 2026-02-14
+
+### Added
+- Persist tasks to disk using tasks.txt
+- Load tasks automatically on startup
+
+---
+
 ## [0.1.2] - 2026-02-14
 
 ### Added

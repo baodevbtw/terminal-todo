@@ -16,6 +16,18 @@ if os.path.exists("tasks.txt"):
             else:
                 tasks.append((False, 2, line))
 
+
+def show_help():
+    print("""
+Commands:
+a <text>        Add task
+<number>       Toggle done
+x <number>     Delete task
+h              Show help
+q              Quit
+""")
+
+
 while True:
     print("\n--- TODO ---")
 
@@ -27,15 +39,33 @@ while True:
             pmark = "!" * prio
             print(f"{i+1}. [{mark}] [{pmark}] {text}")
 
-    print("\n[a] Add")
-    print("[d] Mark done")
-    print("[x] Delete")
-    print("[q] Quit")
-
     cmd = input("> ").strip().lower()
+    parts = cmd.split(maxsplit=1)
 
-    if cmd == "a":
-        text = input("Task: ").strip()
+    # HELP
+    if cmd in ("h", "help"):
+        show_help()
+
+    # QUIT
+    elif cmd in ("q", "quit", "exit"):
+        break
+
+    # TOGGLE BY NUMBER
+    elif cmd.isdigit():
+        i = int(cmd) - 1
+        if 0 <= i < len(tasks):
+            done, prio, text = tasks[i]
+            tasks[i] = (not done, prio, text)
+        else:
+            print("Invalid number.")
+
+    # ADD
+    elif parts[0] in ("a", "add"):
+        if len(parts) == 2:
+            text = parts[1]
+        else:
+            text = input("Task: ").strip()
+
         if text:
             try:
                 prio = int(input("Priority (1=low, 2=med, 3=high): "))
@@ -47,26 +77,14 @@ while True:
         else:
             print("Empty task ignored.")
 
-    elif cmd == "d":
-        if not tasks:
-            print("No tasks.")
-            continue
+    # DELETE
+    elif parts[0] in ("x", "del", "delete"):
         try:
-            i = int(input("Done number: ")) - 1
-            if 0 <= i < len(tasks):
-                done, prio, text = tasks[i]
-                tasks[i] = (not done, prio, text)
+            if len(parts) == 2:
+                i = int(parts[1]) - 1
             else:
-                print("Invalid number.")
-        except ValueError:
-            print("Please enter a number.")
+                i = int(input("Delete number: ")) - 1
 
-    elif cmd == "x":
-        if not tasks:
-            print("No tasks to delete.")
-            continue
-        try:
-            i = int(input("Delete number: ")) - 1
             if 0 <= i < len(tasks):
                 confirm = input(f"Delete '{tasks[i][2]}'? (y/n): ")
                 if confirm.lower() == "y":
@@ -79,9 +97,10 @@ while True:
         except ValueError:
             print("Please enter a number.")
 
-    elif cmd == "q":
-        break
+    else:
+        print("Unknown command. Press 'h' for help.")
 
+    # sort: not done first, high priority first
     tasks.sort(key=lambda t: (t[0], -t[1]))
 
     with open("tasks.txt", "w") as f:

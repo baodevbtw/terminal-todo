@@ -7,7 +7,20 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [0.4.0] - 2026-02-14
+## [0.5.0] - 2026-02-15
+
+### Added
+- Inline commands (a <text>, x <num>)
+- Numeric shortcuts for toggling tasks
+- Help screen (h)
+- Command aliases (add, delete, quit)
+
+### Changed
+- Input parsing is now flexible and forgiving
+
+---
+
+## [0.4.0] - 2026-02-15
 
 ### Added
 - Task priority (low / medium / high)

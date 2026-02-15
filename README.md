@@ -4,37 +4,35 @@ A simple beginner terminal-based TODO application written in Python.
 
 This project is built step-by-step to practice Git, GitHub, and basic software development.
 
-## Features (v0.3.2)
+## Features (v0.4.0)
 
 - Add new tasks  
-- Mark tasks as done  
+- Mark tasks as done / undo  
 - Delete tasks by number  
 - Confirm before deleting  
+- Task priority (low / medium / high)  
+- Completed tasks sorted to the bottom  
+- Tasks sorted by priority  
 - Tasks are saved to disk (tasks.txt)  
 - Tasks are loaded automatically on startup  
-- Uses a strict internal file format (done|text)
-- Completed tasks are automatically sorted to the bottom
 
 ## File format
 
-From version 0.3.0, tasks are stored like this:
+From version 0.4.0, tasks are stored like this:
 
-0|Buy milk  
-1|Finish homework  
-0|Learn git  
+0|3|Finish project  
+1|1|Buy milk  
+0|2|Learn git  
 
 Where:
-- 0 = not done  
-- 1 = done  
-
-Older tasks.txt files (pre-0.3.0) are automatically migrated on startup.
+- First number: 0 = not done, 1 = done  
+- Second number: 1 = low, 2 = medium, 3 = high  
 
 ## How to run
 
 git clone https://github.com/baodevbtw/terminal-todo  
 cd terminal-todo  
 python src/main.py  
-
 
 ## Why this project exists
 
@@ -44,4 +42,5 @@ The goal is to:
 - Learn Git workflow (commits, tags, releases)  
 - Practice semantic versioning  
 - Understand file I/O  
+- Learn how data formats evolve  
 - Build features incrementally without overengineering  

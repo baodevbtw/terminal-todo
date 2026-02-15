@@ -6,11 +6,15 @@ if os.path.exists("tasks.txt"):
     with open("tasks.txt") as f:
         for line in f:
             line = line.strip()
-            if "|" in line:
-                done, text = line.split("|", 1)
-                tasks.append((done == "1", text))
+            parts = line.split("|")
+            if len(parts) == 3:
+                done, prio, text = parts
+                tasks.append((done == "1", int(prio), text))
+            elif len(parts) == 2:
+                done, text = parts
+                tasks.append((done == "1", 2, text))
             else:
-                tasks.append((False, line))
+                tasks.append((False, 2, line))
 
 while True:
     print("\n--- TODO ---")
@@ -18,9 +22,10 @@ while True:
     if not tasks:
         print("No tasks.")
     else:
-        for i, (done, text) in enumerate(tasks):
+        for i, (done, prio, text) in enumerate(tasks):
             mark = "x" if done else " "
-            print(f"{i+1}. [{mark}] {text}")
+            pmark = "!" * prio
+            print(f"{i+1}. [{mark}] [{pmark}] {text}")
 
     print("\n[a] Add")
     print("[d] Mark done")
@@ -32,7 +37,13 @@ while True:
     if cmd == "a":
         text = input("Task: ").strip()
         if text:
-            tasks.append((False, text))
+            try:
+                prio = int(input("Priority (1=low, 2=med, 3=high): "))
+                if prio not in (1, 2, 3):
+                    prio = 2
+            except ValueError:
+                prio = 2
+            tasks.append((False, prio, text))
         else:
             print("Empty task ignored.")
 
@@ -43,8 +54,8 @@ while True:
         try:
             i = int(input("Done number: ")) - 1
             if 0 <= i < len(tasks):
-                done, text = tasks[i]
-                tasks[i] = (True, text)
+                done, prio, text = tasks[i]
+                tasks[i] = (not done, prio, text)
             else:
                 print("Invalid number.")
         except ValueError:
@@ -57,10 +68,10 @@ while True:
         try:
             i = int(input("Delete number: ")) - 1
             if 0 <= i < len(tasks):
-                confirm = input(f"Delete '{tasks[i][1]}'? (y/n): ")
+                confirm = input(f"Delete '{tasks[i][2]}'? (y/n): ")
                 if confirm.lower() == "y":
                     removed = tasks.pop(i)
-                    print(f"Deleted: {removed[1]}")
+                    print(f"Deleted: {removed[2]}")
                 else:
                     print("Cancelled.")
             else:
@@ -70,8 +81,9 @@ while True:
 
     elif cmd == "q":
         break
-    
-    tasks.sort(key=lambda t: t[0])
+
+    tasks.sort(key=lambda t: (t[0], -t[1]))
+
     with open("tasks.txt", "w") as f:
-        for done, text in tasks:
-            f.write(("1" if done else "0") + "|" + text + "\n")
+        for done, prio, text in tasks:
+            f.write(f"{'1' if done else '0'}|{prio}|{text}\n")

@@ -7,6 +7,19 @@ and this project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.4.0] - 2026-02-14
+
+### Added
+- Task priority (low / medium / high)
+- Display priority in task list using ! markers
+- Prompt for priority when adding a task
+
+### Changed
+- Task file format now stores priority (done|priority|text)
+- Tasks are sorted by completion status and priority
+
+---
+
 ## [0.3.2] - 2026-02-14
 
 ### Changed
